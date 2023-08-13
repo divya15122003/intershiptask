@@ -1,20 +1,30 @@
-function convertTemperature() {
-    const temperatureInput = document.getElementById('temperatureInput').value;
-    const unitSelector = document.getElementById('unitSelector');
-    const selectedUnit = unitSelector.options[unitSelector.selectedIndex].value;
-    let convertedTemperature;
-    let unit;
+let displayValue = "";
 
-    if (selectedUnit === 'celsius') {
-        convertedTemperature = (temperatureInput * 9/5) + 32;
-        unit = 'Fahrenheit';
-    } else if (selectedUnit === 'fahrenheit') {
-        convertedTemperature = (temperatureInput - 32) * 5/9;
-        unit = 'Celsius';
-    } else if (selectedUnit === 'kelvin') {
-        convertedTemperature = parseFloat(temperatureInput) + 273.15;
-        unit = 'Kelvin';
-    }
+function appendToDisplay(value) {
+  displayValue += value;
+  updateDisplay();
+}
 
-    document.getElementById('result').innerText = `Converted Temperature: ${convertedTemperature.toFixed(2)} ${unit}`;
+function clearDisplay() {
+  displayValue = "";
+  updateDisplay();
+}
+
+function deleteLast() {
+  displayValue = displayValue.slice(0, -1);
+  updateDisplay();
+}
+
+function calculate() {
+  try {
+    displayValue = eval(displayValue).toString();
+    updateDisplay();
+  } catch (error) {
+    displayValue = "Error";
+    updateDisplay();
+  }
+}
+
+function updateDisplay() {
+  document.getElementById("display-screen").value = displayValue;
 }
